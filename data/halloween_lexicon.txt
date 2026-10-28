@@ -1,0 +1,32 @@
+# Words counted as "Halloween vocabulary" by the evaluator.
+# Fixed before running the experiment; not tuned to the results.
+HALLOWEEN
+TRICK
+TREAT
+GHOST
+SPOOKY
+PUMPKIN
+WITCH
+BOO
+HAUNTED
+MIDNIGHT
+MOON
+BATS
+BAT
+BELFRY
+DEAD
+SKELETON
+CANDY
+DARK
+FOG
+SPIDER
+WEB
+OWL
+GRAVEYARD
+ZOMBIE
+VAMPIRE
+MUMMY
+CAULDRON
+BROOM
+CANDLE
+MAGIC
