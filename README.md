@@ -150,4 +150,5 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 - **The Haunted Frog** was created during Hacktoberfest 2026 (Week 4, "Ghost in the Machine"), starting 2026-10-29.
 - The corpus, control corpus and lexicon were written for this project.
 - The code was written with AI coding assistance (Claude Code), then run and tested locally.
+- Submitted as a DEV post on 2026-10-28 (PDT): https://dev.to/sakiha6720/i-taught-a-tiny-open-source-language-model-to-speak-halloween-meet-the-haunted-frog-1phf . After submission, only `docs/HACKATHON_COMPLIANCE.md` and this note were updated, to record the submission. No code or results changed.
 - MIT License. See [LICENSE](LICENSE).
