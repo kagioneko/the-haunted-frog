@@ -25,7 +25,7 @@ Verdicts: **PASS** = evidence checked · **FAIL** = does not comply · **UNVERIF
 | Item | Verdict | Evidence |
 |---|---|---|
 | New repository created after 2026-10-26 09:00 PDT | UNVERIFIED | Local repo initialised 2026-10-29 JST. The GitHub repo is not created yet. |
-| Development started inside the period | PASS | The first file of this project was created 2026-10-29 JST; see the first commit. |
+| Development started inside the period | PASS (self-attested) | The first commit is dated 2026-10-29 JST (`git log --reverse`). The project directory, corpus and code were all created that day. Git dates are set by the author, so this is the author's own attestation. |
 | Work completed before deadline | UNVERIFIED | Pending submission |
 | Submitted before deadline | UNVERIFIED | Pending submission |
 | Post-submission commits disclosed in README | UNVERIFIED | Only applies if commits happen after submission |
@@ -41,7 +41,7 @@ Verdicts: **PASS** = evidence checked · **FAIL** = does not comply · **UNVERIF
 | New work visible in commit history | UNVERIFIED | Pending first public push |
 | No unlicensed reuse | PASS | Only an MIT dependency, used via its API |
 
-Note: CSE-Frog is by the same author and existed before the period. The rules require the *entry* to be started during the period. Using a pre-existing open-source library is how every entry uses its model. The DEV post should say plainly that the engine pre-dates the challenge and the app does not.
+Note: CSE-Frog is by the same author and existed before the period (first published to PyPI in early October 2026). The rules require the *entry* to be "brand-new" and started during the period. Our reading is that a pre-existing open-source library used unmodified as a dependency is the open-source AI the entry is built *with*, like any open-weight model, and is not the entry itself. **This is our interpretation, not an organizer ruling.** The DEV post states the timeline plainly. If there is any doubt, ask the organizers before submitting.
 
 ## C-03 Open-source AI
 

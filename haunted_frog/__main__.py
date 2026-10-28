@@ -2,12 +2,29 @@
 from __future__ import annotations
 
 import argparse
+import math
 import sys
 
 from . import evaluator, trainer
 from .corpus import DEFAULT_CORPUS, UNITS
 from .generator import append_log, generate_many
 from .terminal import haunt
+
+
+def _int_at_least(lo):
+    def parse(text):
+        value = int(text)
+        if value < lo:
+            raise argparse.ArgumentTypeError(f"must be an integer >= {lo}")
+        return value
+    return parse
+
+
+def _seconds(text):
+    value = float(text)
+    if not math.isfinite(value) or value < 0:
+        raise argparse.ArgumentTypeError("must be a finite number >= 0")
+    return value
 
 
 def main(argv=None) -> int:
@@ -17,16 +34,16 @@ def main(argv=None) -> int:
     t = sub.add_parser("train", help="train a frog on the corpus and save it")
     t.add_argument("--corpus", default=str(DEFAULT_CORPUS))
     t.add_argument("--unit", choices=UNITS, default="word")
-    t.add_argument("--epochs", type=int, default=5)
+    t.add_argument("--epochs", type=_int_at_least(1), default=5)
     t.add_argument("--model-dir", default=str(trainer.DEFAULT_MODEL_DIR))
-    t.add_argument("--top-k-edges", type=int, default=trainer.DEFAULT_FROG_CONFIG["top_k_edges"])
+    t.add_argument("--top-k-edges", type=_int_at_least(1), default=trainer.DEFAULT_FROG_CONFIG["top_k_edges"])
     t.add_argument("--temperature", type=float, help="CSE-Frog temperature (default: CSE-Frog's)")
 
     h = sub.add_parser("haunt", help="open the Haunted Terminal")
     h.add_argument("--unit", choices=UNITS, default="word")
     h.add_argument("--model-dir", default=str(trainer.DEFAULT_MODEL_DIR))
-    h.add_argument("--count", type=int, default=8, help="lines to speak (0 = forever)")
-    h.add_argument("--interval", type=float, default=2.5)
+    h.add_argument("--count", type=_int_at_least(0), default=8, help="lines to speak (0 = forever)")
+    h.add_argument("--interval", type=_seconds, default=2.5)
     h.add_argument("--seed", type=int)
     h.add_argument("--prompt", default="", help="words the frog must continue from")
     h.add_argument("--fast", action="store_true", help="no typewriter / no pauses")
@@ -36,14 +53,14 @@ def main(argv=None) -> int:
     g = sub.add_parser("generate", help="print raw generations, one per line")
     g.add_argument("--unit", choices=UNITS, default="word")
     g.add_argument("--model-dir", default=str(trainer.DEFAULT_MODEL_DIR))
-    g.add_argument("-n", type=int, default=10)
+    g.add_argument("-n", type=_int_at_least(1), default=10)
     g.add_argument("--seed", type=int, default=0, help="first seed; line i uses seed+i")
-    g.add_argument("--max-len", type=int)
+    g.add_argument("--max-len", type=_int_at_least(1))
     g.add_argument("--prompt", default="")
     g.add_argument("--log")
 
     e = sub.add_parser("evaluate", help="run the before/after experiment")
-    e.add_argument("--seeds", type=int, default=100)
+    e.add_argument("--seeds", type=_int_at_least(1), default=100)
     e.add_argument("--first-seed", type=int, default=evaluator.FIRST_SEED)
     e.add_argument("--out", default="results/experiment.json")
 
@@ -76,7 +93,7 @@ def main(argv=None) -> int:
             json_path, md_path = evaluator.write(result, a.out)
             print(evaluator.to_markdown(result).split("\n**")[0])
             print(f"Wrote {json_path} and {md_path}")
-    except (FileNotFoundError, ValueError) as exc:
+    except (OSError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
     return 0

@@ -107,14 +107,14 @@ Word-level conditions use `top_k_edges=16` unless they are marked k3.
 What worked:
 
 - **Learning changes what it says.** The untrained frog is silent and rejects every word. The control frog never says a Halloween word. The Halloween frog uses one in every 5-7 words.
-- **It recombines.** Most word-level lines are not copies of corpus lines. Examples: `THE ZOMBIE IS FLICKERING`, `THE GHOST IS IN THE FROG`, `THE OWL SAYS WHO IS THERE`.
+- **It recombines.** With the shipped settings (k=16), 83-94% of the Halloween word-level lines are not exact corpus lines. Examples: `THE ZOMBIE IS FLICKERING`, `THE GHOST IS IN THE FROG`, `THE OWL SAYS WHO IS THERE`. Some lines are exact corpus lines (`THE OWL SAYS WHO`).
 
 What failed or surprised us:
 
 - **It over-uses "THE".** Almost every word-level line starts with `THE`, and the Halloween-word rate (15-19%) stays *below* the corpus's own 22.6%.
-- **More training made it less varied.** With more epochs, unique outputs fell from 81% to 38%, and the frog fell back on a few attractors such as `THE GHOST` and `THE MACHINE`.
+- **More training made it less varied.** With more epochs, unique outputs fell from 81% to 38%, and the frog fell back on a few attractors such as `THE GHOST` and `THE MACHINE`. `scripts/diagnose.py` shows why: the probability that a line starts with `THE` rises from 0.435 (1 epoch) to 0.998 (20 epochs).
 - **CSE-Frog's default `top_k_edges=3` is too narrow for this corpus.** Unique outputs were only 20%, and nearly every line started with `THE GHOST`, `THE MACHINE` or `THE FROG`. We raised it to 16 after looking at seeds 0-39 and then scored on seeds 1000+.
-- **The character-level frog never produced a single Halloween word.** It spins in an `IN IN ING` loop (`THE INGHE INGHE IN IN IN THE ING`) with occasional fragments like `AUNIGIC`. With only about two symbols of context it cannot hold a word together. This is the clearest picture of why real LMs need longer context.
+- **The character-level frog almost never produces a Halloween word.** At 5 and 20 epochs (200 outputs) it produced none. At 1 epoch it produced exactly one, in 1 output out of 100. It keeps circling an `IN IN ING` loop (`THE INGHE INGHE IN IN IN THE ING`), with occasional fragments like `AUNIGIC`. Our hypothesis is that about two symbols of context is not enough to hold a word together. We did not test this directly (e.g. by varying context length).
 - "Novel" only means "not an exact corpus line". It does not mean grammatical: `THE FROG IS ROLLING IN THE LIGHT IS BUBBLING`.
 
 ## How it works
@@ -142,6 +142,7 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 - Character-level generation is mostly non-words.
 - The metrics are simple surface counts on 100 samples per condition. They are not significance tests.
 - The vocabulary is fixed by the corpus. Prompts with unseen words are rejected rather than guessed.
+- Run it from a clone (`pip install -e .`). The corpora live in `data/` and are not packaged into a wheel.
 
 ## Credits and license
 

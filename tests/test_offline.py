@@ -26,8 +26,11 @@ def test_train_generate_save_load_offline(no_network, tmp_path):
 
 
 def test_no_network_libraries_imported():
+    # Fresh interpreter, so pytest plugins cannot pollute sys.modules.
+    import subprocess
     import sys
-
-    import haunted_frog.__main__  # noqa: F401  (pulls in every module)
-    for mod in ("requests", "urllib3", "httpx", "aiohttp"):
-        assert mod not in sys.modules
+    code = ("import sys, haunted_frog.__main__; "
+            "print([m for m in ('requests', 'urllib3', 'httpx', 'aiohttp', 'http.client') "
+            "if m in sys.modules])")
+    out = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, check=True)
+    assert out.stdout.strip() == "[]"

@@ -47,7 +47,9 @@ def generate(frog, unit: str, *, seed=None, prompt: str = "", max_len: Optional[
         seed=seed,
         prompt=prompt,
         max_len=max_len,
-        # frog.generate stops early only when it picks <END>
+        # In cse-frog 0.2.0, Frog.generate leaves its loop early only when the sampled
+        # symbol is <END>. An untrained frog has no candidates, and its probabilities()
+        # are then {<END>: 1.0}, so its silence is also an <END> pick (both are tested).
         ended=len(tokens) < max_len,
         greedy=greedy,
     )

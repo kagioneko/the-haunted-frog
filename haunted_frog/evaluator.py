@@ -97,6 +97,8 @@ def untrained_probe(seeds, lexicon):
 
 def run_experiment(seeds=DEFAULT_SEEDS, corpus=DEFAULT_CORPUS, control=CONTROL_CORPUS):
     seeds = list(seeds)
+    if not seeds:
+        raise ValueError("need at least one seed")
     lexicon = read_lexicon()
     conditions = []
     for unit in ("word", "char"):

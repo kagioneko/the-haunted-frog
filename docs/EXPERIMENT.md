@@ -3,7 +3,7 @@
 Reproduce:
 
 ```bash
-python -m haunted_frog evaluate      # ~1.5 min on one CPU core
+python -m haunted_frog evaluate      # ~1 min on one CPU core
 ```
 
 The output goes to `results/experiment.json` and `results/experiment.md`.
@@ -92,20 +92,42 @@ All metrics are computed on whitespace-split words of the output text, so word- 
 **control-word**:
 `THE BAKER IS SINGING` · `THE DOG` · `THE WINDOW` · `THE BIRD ATE THE KITCHEN` · `THE DAY IS READING` · `THE FLOWER IS SLEEPING` · `THE DOG IS LONG` · `THE LIBRARY IS SLEEPING` · `THE RAIN IS READING` · `THE KITCHEN`
 
-**halloween-char-e5**: the 10 seeds are mostly variations of
-`THE IN IN IN ING`, `THE IS IN IN ING ING`, `THE INGHE INGHE IN IN IN WIS INDYS ING`.
-Lines marked ✂ in `results/experiment.md` hit the 60-character limit.
+**halloween-char-e5** (✂ = hit the 60-character limit):
+`THE INOS IN IN IS IN THE ISE IN IN THE IN IN THE IN GHE ING` ✂ · `THE IS IN IN ING ING` · `THE IN IN IN ING` · `THE IN IN INDE IN IN IN IS IS IN INGHE IS THE IN IN IN IS IN` ✂ · `THE INGHE INGHE IN IN IN WIS INDYS ING` · `THE ITHE INGHE IN IN INDN INGHE IN IN THE IN IN THE IN IN TH` ✂ · `THE IN IN ING` · `IN THE FON IS INE IS THE IN IS IN IN IS IN INDARE IN IN INDY` ✂ · `THE THE THE IN IN IN IS IN THE THE ININ IN IN IN INIS IN IN` ✂ · `THE THE IN ING`
 
-**halloween-char-e1**: `HE S L THE AUNIGIC`, `ADOVEBOMAMIDR THE IN INTHE SPKI W`, `N`, `C`, ...
+**halloween-char-e1**:
+`HE INGLOA THE THING I IDE D` · `HE S L THE AUNIGIC` · `CHE THE THE THE IND` · `ATHE ING` · `IR AKE S WE CE THE IDNIN YOBATHE DALE THE ININ LLLLING ISLLD` ✂ · `ADOVEBOMAMIDR THE IN INTHE SPKI W` · `THE IN THE I INCORIN` · `N` · `C` · `THE BIST IN THE ANG`
+
+Every other condition's first ten are in `results/example_results.json` (`samples`).
 
 ## Findings
 
 1. **Training is what makes it speak at all, and the corpus decides what it says.** Untrained: silence. Control corpus: 0% Halloween words. Halloween corpus: 15-19%.
-2. **It recombines rather than recites.** 83-94% of word-level outputs are not exact corpus lines. The frog swaps the subject and predicate across lines that share `THE ... IS ...` (`THE ZOMBIE IS FLICKERING`, `THE GHOST IS IN THE FROG`). Some recombinations are not grammatical.
+2. **It recombines rather than recites.** With k=16, 83-94% of Halloween word-level outputs are not exact corpus lines (k=3: 80%, control: 95%). The frog swaps the subject and predicate across lines that share `THE ... IS ...` (`THE ZOMBIE IS FLICKERING`, `THE GHOST IS IN THE FROG`). Some recombinations are not grammatical.
 3. **It amplifies the most common word.** `THE` is the corpus's most frequent word (41 of 235 words) and starts 23 of 60 lines (38%), yet it starts almost every word-level output. The Halloween-word rate stays *below* the corpus's own 22.6%, because function words (THE, IS) are over-produced.
 4. **More epochs mean less variety.** Unique outputs fall from 0.81 (e1) to 0.57 (e5) to 0.38 (e20), and the outputs get shorter (4.17 to 2.99 words). The strongest paths get stronger and the frog falls into a few attractors (`THE GHOST`, `THE MACHINE`).
-5. **The candidate cutoff matters more than epochs.** At the CSE-Frog default `top_k_edges=3`, only 20% of outputs are unique (k=16: 57%) at the same epoch count.
-6. **The character-level frog cannot hold a word together.** It almost never produces a Halloween word (0-0.2%). It falls into an `IN IN ING` loop: `THE`, `IS` and `IN` are among the most frequent character runs in the corpus, and many lines end in `-ING`. About two characters of context is not enough to escape them. More training raises "real word" share (0.36 to 0.73) mainly by making it repeat `THE`/`IN`/`IS`. This is the clearest demonstration in the project of why real language models need long context.
+5. **The candidate cutoff matters a lot.** At the CSE-Frog default `top_k_edges=3`, only 20% of outputs are unique, against 57% for k=16 at the same 5 epochs. This is one setting on one corpus, so it is not a general claim about CSE-Frog.
+6. **The character-level frog cannot hold a word together.** It produced no Halloween word at 5 or 20 epochs. At 1 epoch it produced one (1 of 598 words, in 1 of 100 outputs). It falls into an `IN IN ING` loop: `THE`, `IS` and `IN` are among the most frequent character runs in the corpus, and many lines end in `-ING`. Our **hypothesis** is that about two characters of context is not enough to escape them. This was not isolated experimentally: we did not vary the context length. More training raises the "real word" share (0.36 to 0.73), and the samples suggest this comes mostly from repeating `THE`/`IN`/`IS`.
+
+## Diagnostics: why more epochs mean less variety
+
+`python scripts/diagnose.py` prints CSE-Frog's own next-word probabilities for the word-level frog (k=16):
+
+```text
+=== word-level, 1 epoch(s), top_k_edges=16
+  after (start)    -> THE 0.435, I 0.066, A 0.060, CROAK 0.037, BOO 0.037
+  after THE        -> FROG 0.099, GHOST 0.098, MACHINE 0.076, LIGHT 0.062, HOUSE 0.058
+  after THE GHOST  -> <END> 0.354, IS 0.280, ATE 0.197, IN 0.169
+
+=== word-level, 20 epoch(s), top_k_edges=16
+  after (start)    -> THE 0.998, I 0.001, A 0.001, CROAK 0.000, BOO 0.000
+  after THE        -> FROG 0.357, GHOST 0.335, MACHINE 0.117, LIGHT 0.026, HOUSE 0.025
+  after THE GHOST  -> <END> 0.718, IS 0.144, IN 0.084, ATE 0.055
+```
+
+Repeated training keeps strengthening the same links, while the temperature (0.8) stays fixed.
+The softmax therefore saturates. At 20 epochs a line starts with `THE` 99.8% of the time, and `THE GHOST` stops right there 72% of the time.
+CSE-Frog's `frog.show(["THE"])` (also printed by the script) shows that almost all of the score for `FROG`/`GHOST` comes from the direct link (3.30/3.25), with very little from pair context (0.13).
 
 ## Threats to validity
 

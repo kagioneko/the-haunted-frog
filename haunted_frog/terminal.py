@@ -71,7 +71,13 @@ def haunt(frog, info, *, count: int = 8, interval: float = 2.5, seed=None,
     """Let the frog speak `count` times (0 = until Ctrl+C).
 
     `seed` fixes the whole session: line i uses seed+i, so a session can be replayed.
+    Each line is appended to `log_path` as soon as it is spoken. Returns the
+    utterances (an empty list in endless mode, which keeps nothing in memory).
     """
+    if not isinstance(count, int) or count < 0:
+        raise ValueError("count must be an integer >= 0")
+    if interval < 0 or typing_delay < 0:
+        raise ValueError("interval and typing delay must be >= 0")
     stream = stream or sys.stdout
     style = Style(color_enabled(stream), halloween)
     base = seed if seed is not None else random.SystemRandom().randrange(1_000_000)
@@ -92,7 +98,10 @@ def haunt(frog, info, *, count: int = 8, interval: float = 2.5, seed=None,
     try:
         while count == 0 or i < count:
             utt = generate(frog, unit, seed=base + i, prompt=prompt)
-            spoken.append(utt)
+            if count:
+                spoken.append(utt)
+            if log_path:
+                append_log(log_path, [utt], {"session_seed": base, "epochs": info.epochs})
             text = utt.text if utt.text.strip() else "(silence)"
             mark = "" if utt.ended else " …"
             prefix = "🐸 " if halloween else "> "
@@ -107,6 +116,4 @@ def haunt(frog, info, *, count: int = 8, interval: float = 2.5, seed=None,
         stream.write("\n")
     if halloween:
         typewrite(f"\n{style.dim}{NARRATION_CLOSE}{style.reset}", stream, typing_delay)
-    if log_path:
-        append_log(log_path, spoken, {"session_seed": base, "epochs": info.epochs})
     return spoken
