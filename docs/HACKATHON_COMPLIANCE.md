@@ -72,15 +72,15 @@ Note: CSE-Frog is by the same author and existed before the period (first publis
 | Tags `devchallenge`, `hf26challenge` | PASS | Draft tags: devchallenge, hf26challenge, opensource, python |
 | Tech explained | PASS | "How I Built It" section |
 | Open innovation explained | PASS | "Why Does Open Innovation Matter?" section |
-| Exactly one Week 4 entry | UNVERIFIED | Entrant to confirm |
+| Exactly one Week 4 entry | PASS | Confirmed by the entrant on 2026-10-29 |
 
 ## C-06 Eligibility and rules
 
 | Item | Verdict | Evidence |
 |---|---|---|
-| Entrant 18+ | UNVERIFIED | Entrant to confirm |
-| Country eligible | UNVERIFIED | Japan is not on the excluded list. The entrant must confirm residence. |
-| DEV account in good standing | UNVERIFIED | Entrant to confirm |
+| Entrant 18+ | PASS | Confirmed by the entrant on 2026-10-29 |
+| Country eligible | PASS | The entrant resides in Japan, which is not on the excluded list. Confirmed 2026-10-29. |
+| DEV account in good standing | PASS | Confirmed by the entrant on 2026-10-29. The post was published from the account. |
 | General official rules read | PASS | See the sources above. Key clauses are summarised. |
 | No third-party IP violation | PASS | Original corpus and art. MIT dependency. |
 | AI tools and assets disclosed | PASS | `README.md` and `NOTICE.md` disclose AI coding assistance. The rules do not require it. |
@@ -90,5 +90,5 @@ Note: CSE-Frog is by the same author and existed before the period (first publis
 1. ~~Create the public GitHub repo, with a cross-AI review before the push~~ (done: Codex review round 4 PASS-with-nits, nits fixed).
 2. ~~Write the DEV post from the official template~~ (done: saved as an unpublished draft). The entrant reviews it and publishes.
 3. ~~Publish~~ (done: 2026-10-28T19:26:47Z).
-4. Entrant confirms age, residence, DEV account and that this is the only Week 4 entry.
+4. ~~Entrant confirms age, residence, DEV account and that this is the only Week 4 entry.~~ (done 2026-10-29)
 5. ~~Submit before 2026-11-01 15:59 JST and record the URL and time~~ (done, see C-01).
