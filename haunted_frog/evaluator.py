@@ -1,8 +1,8 @@
 """The before/after experiment.
 
-Every condition is measured with the same seeds, the same max length and the
-same metrics. Samples in the report are the first seeds in order (0, 1, 2, ...),
-not hand-picked ones.
+Every condition is measured with the same seeds and the same metrics, and with
+the same max length within each unit (word 12, char 60). Samples in the report
+are the first requested seeds, in order, not hand-picked ones.
 """
 from __future__ import annotations
 
@@ -154,7 +154,7 @@ def to_markdown(result) -> str:
     out.append(f"\nUntrained Frog(): empty_rate={u['metrics']['empty_rate']}, "
                f"prompt 'GHOST' -> {u['prompt_GHOST']}\n")
     for c in result["conditions"]:
-        out.append(f"\n**{c['name']}** (first {SAMPLES_PER_CONDITION} seeds, unedited):\n")
+        out.append(f"\n**{c['name']}** (first {len(c['samples'])} seeds, unedited):\n")
         out += [f"- `{s['seed']}`: {s['text'] or '(silence)'}" + ("" if s["stopped_before_limit"] else " ✂")
                 for s in c["samples"]]
     return "\n".join(out) + "\n"
