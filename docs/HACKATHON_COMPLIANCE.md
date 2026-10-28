@@ -24,7 +24,7 @@ Verdicts: **PASS** = evidence checked · **FAIL** = does not comply · **UNVERIF
 
 | Item | Verdict | Evidence |
 |---|---|---|
-| New repository created after 2026-10-26 09:00 PDT | UNVERIFIED | Local repo initialised 2026-10-29 JST. The GitHub repo is not created yet. |
+| New repository created after 2026-10-26 09:00 PDT | PASS | GitHub `createdAt` 2026-10-28T19:17:14Z (= 2026-10-28 12:17 PDT) |
 | Development started inside the period | PASS (self-attested) | The first commit is dated 2026-10-29 JST (`git log --reverse`). The project directory, corpus and code were all created that day. Git dates are set by the author, so this is the author's own attestation. |
 | Work completed before deadline | UNVERIFIED | Pending submission |
 | Submitted before deadline | UNVERIFIED | Pending submission |
@@ -38,7 +38,7 @@ Verdicts: **PASS** = evidence checked · **FAIL** = does not comply · **UNVERIF
 | Stands alone as a Halloween app | PASS | Own package `haunted_frog`, CLI, corpus, terminal |
 | Original features | PASS | Corpus and control corpus, train/save metadata, Haunted Terminal, seeded replay, evaluator with 10 conditions, tests |
 | Source of existing code credited | PASS | `README.md` "Credits and license", `NOTICE.md` |
-| New work visible in commit history | UNVERIFIED | Pending first public push |
+| New work visible in commit history | PASS | https://github.com/kagioneko/the-haunted-frog/commits/main |
 | No unlicensed reuse | PASS | Only an MIT dependency, used via its API |
 
 Note: CSE-Frog is by the same author and existed before the period (first published to PyPI in early October 2026). The rules require the *entry* to be "brand-new" and started during the period. Our reading is that a pre-existing open-source library used unmodified as a dependency is the open-source AI the entry is built *with*, like any open-weight model, and is not the entry itself. **This is our interpretation, not an organizer ruling.** The DEV post states the timeline plainly. If there is any doubt, ask the organizers before submitting.
@@ -51,7 +51,7 @@ Note: CSE-Frog is by the same author and existed before the period (first publis
 | Not just fixed strings | PASS | Frog lines vary by seed (`test_same_seed_same_output` checks that they differ across seeds). Narration is visibly separate. |
 | MIT terms respected | PASS | Dependency ships its license. Attribution in `NOTICE.md`. This repo is MIT. |
 | Engine/app relationship explained | PASS | `docs/ARCHITECTURE.md` "Where the AI is" |
-| Why open-source AI matters | UNVERIFIED | Belongs in the DEV post. Draft pending. |
+| Why open-source AI matters | PASS (pending publication) | DEV draft, "Why Does Open Innovation Matter?" |
 
 ## C-04 Theme
 
@@ -65,13 +65,13 @@ Note: CSE-Frog is by the same author and existed before the period (first publis
 
 | Item | Verdict | Evidence |
 |---|---|---|
-| Code repository URL | UNVERIFIED | GitHub repo not created yet |
-| Working demo (video or deployment) | UNVERIFIED | GIF is recorded locally. It needs to be embedded in the post (or uploaded as a video). |
-| Official DEV template used | UNVERIFIED | Post not written |
-| Post in English | UNVERIFIED | Post not written |
-| Tags `devchallenge`, `hf26challenge` | UNVERIFIED | Post not written |
-| Tech explained | UNVERIFIED | Post not written. README/ARCHITECTURE are ready to draw from. |
-| Open innovation explained | UNVERIFIED | Post not written |
+| Code repository URL | PASS | https://github.com/kagioneko/the-haunted-frog (public) |
+| Working demo (video or deployment) | PASS (pending publication) | `docs/media/haunt.gif` is embedded in the DEV draft. Anyone can reproduce it by running the repo. |
+| Official DEV template used | PASS (pending publication) | The draft uses the template's opening line and section headings, decoded from the challenge page's prefill link. The optional My Agent Session and Prize Categories sections were removed, as the template allows. |
+| Post in English | PASS (pending publication) | DEV draft |
+| Tags `devchallenge`, `hf26challenge` | PASS (pending publication) | Draft tags: devchallenge, hf26challenge, opensource, python |
+| Tech explained | PASS (pending publication) | "How I Built It" section |
+| Open innovation explained | PASS (pending publication) | "Why Does Open Innovation Matter?" section |
 | Exactly one Week 4 entry | UNVERIFIED | Entrant to confirm |
 
 ## C-06 Eligibility and rules
@@ -87,7 +87,7 @@ Note: CSE-Frog is by the same author and existed before the period (first publis
 
 ## Open items before submission
 
-1. Create the public GitHub repo, with a cross-AI review (Codex) before the push.
-2. Write the DEV post from the official template: English, both tags, demo GIF, real outputs and failures.
+1. ~~Create the public GitHub repo, with a cross-AI review before the push~~ (done: Codex review round 4 PASS-with-nits, nits fixed).
+2. ~~Write the DEV post from the official template~~ (done: saved as an unpublished draft). The entrant reviews it and publishes.
 3. Entrant confirms age, residence, DEV account and that this is the only Week 4 entry.
 4. Submit before 2026-11-01 15:59 JST and record the URL and time.
