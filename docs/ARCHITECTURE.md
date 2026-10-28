@@ -4,7 +4,7 @@
 haunted_frog/
   corpus.py     read_lines (comments, case, spacing) · tokenize (word|char) · to_sequences · detokenize
   trainer.py    train() -> (cse.Frog, TrainInfo) · save()/load()  models/frog-<unit>.cse + .json
-  generator.py  generate() -> Utterance(text, tokens, seed, max_len, ended, ...) · JSONL logging
+  generator.py  generate() -> Utterance(text, tokens, seed, max_len, stopped_before_limit, ...) · JSONL logging
   terminal.py   haunt(): Haunted Terminal (ASCII frog, typewriter, narration, colours)
   evaluator.py  metrics() · run_experiment() · markdown report
   __main__.py   CLI: train | haunt | generate | evaluate

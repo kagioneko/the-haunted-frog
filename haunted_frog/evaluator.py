@@ -41,10 +41,12 @@ def metrics(utterances, corpus_lines, lexicon):
     corpus_set = set(corpus_lines)
     corpus_vocab = {w for line in corpus_lines for w in line.split()}
     adjacent = [(a, b) for ws in words for a, b in zip(ws, ws[1:])]
+    first = Counter(ws[0] for ws in words)
+    top_first, top_first_n = first.most_common(1)[0] if first else ("", 0)
     return {
         "n": len(utterances),
         "empty_rate": _ratio(len(texts) - len(nonempty), len(texts)),
-        "ended_rate": _ratio(sum(u.ended for u in utterances), len(utterances)),
+        "stopped_before_limit_rate": _ratio(sum(u.stopped_before_limit for u in utterances), len(utterances)),
         "mean_words": round(sum(map(len, words)) / len(texts), 3) if texts else 0.0,
         "halloween_word_rate": _ratio(sum(w in lexicon for w in all_words), len(all_words)),
         "utterances_with_halloween_word": _ratio(
@@ -56,6 +58,8 @@ def metrics(utterances, corpus_lines, lexicon):
         "distinct_1": _distinct(words, 1),
         "distinct_2": _distinct(words, 2),
         "immediate_repeat_rate": _ratio(sum(a == b for a, b in adjacent), len(adjacent)),
+        "top_first_word": top_first,
+        "top_first_word_rate": _ratio(top_first_n, len(nonempty)),
     }
 
 
@@ -74,7 +78,7 @@ def run_condition(name, corpus, unit, epochs, seeds, lexicon, frog_config=None):
         "max_len": DEFAULT_MAX_LEN[unit],
         "metrics": metrics(utts, lines, lexicon),
         "most_common": [{"text": t, "count": c} for t, c in top],
-        "samples": [{"seed": u.seed, "text": u.text, "ended": u.ended}
+        "samples": [{"seed": u.seed, "text": u.text, "stopped_before_limit": u.stopped_before_limit}
                     for u in utts[:SAMPLES_PER_CONDITION]],
     }
 
@@ -128,7 +132,9 @@ TABLE_COLUMNS = [
     ("unique_utterance_rate", "Unique"),
     ("distinct_2", "Distinct-2"),
     ("immediate_repeat_rate", "Repeats"),
-    ("ended_rate", "Ended"),
+    ("top_first_word", "Top 1st word"),
+    ("top_first_word_rate", "Its share"),
+    ("stopped_before_limit_rate", "Stopped < max"),
     ("mean_words", "Mean words"),
 ]
 
@@ -149,13 +155,15 @@ def to_markdown(result) -> str:
                f"prompt 'GHOST' -> {u['prompt_GHOST']}\n")
     for c in result["conditions"]:
         out.append(f"\n**{c['name']}** (first {SAMPLES_PER_CONDITION} seeds, unedited):\n")
-        out += [f"- `{s['seed']}`: {s['text'] or '(silence)'}" + ("" if s["ended"] else " ✂")
+        out += [f"- `{s['seed']}`: {s['text'] or '(silence)'}" + ("" if s["stopped_before_limit"] else " ✂")
                 for s in c["samples"]]
     return "\n".join(out) + "\n"
 
 
 def write(result, out_path):
     out_path = Path(out_path)
+    if out_path.suffix != ".json":
+        raise ValueError(f"--out must end in .json (the .md report is written next to it): {out_path}")
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     md_path = out_path.with_suffix(".md")

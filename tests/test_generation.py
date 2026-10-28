@@ -52,22 +52,35 @@ def test_end_marker_is_not_printed(word_frog, char_frog):
             assert all(isinstance(t, str) for t in u.tokens)
 
 
-def test_ended_means_end_was_possible_at_the_stop(word_frog):
-    # Independent of the length rule: wherever we say the frog ended, <END> must
-    # actually have had probability at that point.
+def test_stopped_early_only_by_forced_end():
+    # Drive the real Frog.generate with a scripted distribution: 3 symbols, then <END>.
+    from cse import END
+    frog = Frog().learn([["A", "B"]], epochs=1)
+    script = iter([{"A": 1.0}, {"B": 1.0}, {"A": 1.0}, {END: 1.0}])
+    frog.probabilities = lambda prefix: next(script)
+    u = generate(frog, "word", seed=0, max_len=10)
+    assert u.tokens == ["A", "B", "A"] and u.stopped_before_limit is True
+    # never offered <END> -> runs to the limit
+    frog.probabilities = lambda prefix: {"A": 1.0}
+    u = generate(frog, "word", seed=0, max_len=4)
+    assert u.tokens == ["A"] * 4 and u.stopped_before_limit is False
+
+
+def test_stop_points_allow_end(word_frog):
     frog, _ = word_frog
-    ended = [u for u in generate_many(frog, "word", range(50), max_len=50) if u.ended]
-    assert ended
-    for u in ended:
+    stopped = [u for u in generate_many(frog, "word", range(50), max_len=50)
+               if u.stopped_before_limit]
+    assert stopped
+    for u in stopped:
         probs = frog.probabilities(u.tokens)
         assert any(str(k) == "<END>" and p > 0 for k, p in probs.items())
 
 
-def test_cut_at_max_len_is_not_ended():
+def test_cut_at_max_len_is_not_stopped_early():
     # A frog that has only seen one long line cannot stop after 1 word.
     frog = Frog().learn([["ONE", "TWO", "THREE", "FOUR", "FIVE"]], epochs=5)
     u = generate(frog, "word", seed=0, max_len=1, prompt="ONE")
-    assert u.tokens == ["TWO"] and u.ended is False
+    assert u.tokens == ["TWO"] and u.stopped_before_limit is False
 
 
 def test_untrained_silence_is_an_end_pick():
@@ -92,7 +105,7 @@ def test_invalid_max_len(word_frog):
 
 def test_untrained_frog_is_silent_not_crashing():
     u = generate(Frog(), "word", seed=0)
-    assert u.text == "" and u.tokens == [] and u.ended
+    assert u.text == "" and u.tokens == [] and u.stopped_before_limit
 
 
 def test_log_is_jsonl(tmp_path, word_frog):
@@ -194,6 +207,12 @@ def test_cli_reports_missing_model(tmp_path, capsys):
     from haunted_frog.__main__ import main
     assert main(["generate", "--model-dir", str(tmp_path)]) == 1
     assert "haunted_frog train" in capsys.readouterr().err
+
+
+def test_evaluate_refuses_non_json_out(tmp_path):
+    from haunted_frog.__main__ import main
+    assert main(["evaluate", "--seeds", "1", "--out", str(tmp_path / "r.md")]) == 1
+    assert not (tmp_path / "r.md").exists()
 
 
 def test_experiment_needs_seeds():

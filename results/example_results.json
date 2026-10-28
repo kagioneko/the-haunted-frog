@@ -11,7 +11,7 @@
     "metrics": {
       "n": 100,
       "empty_rate": 1.0,
-      "ended_rate": 1.0,
+      "stopped_before_limit_rate": 1.0,
       "mean_words": 0.0,
       "halloween_word_rate": 0.0,
       "utterances_with_halloween_word": 0.0,
@@ -21,7 +21,9 @@
       "unique_utterance_rate": 0.0,
       "distinct_1": 0.0,
       "distinct_2": 0.0,
-      "immediate_repeat_rate": 0.0
+      "immediate_repeat_rate": 0.0,
+      "top_first_word": "",
+      "top_first_word_rate": 0.0
     },
     "prompt_GHOST": "rejected: unknown symbol"
   },
@@ -39,7 +41,7 @@
       "metrics": {
         "n": 100,
         "empty_rate": 0.0,
-        "ended_rate": 0.99,
+        "stopped_before_limit_rate": 0.99,
         "mean_words": 3.63,
         "halloween_word_rate": 0.0,
         "utterances_with_halloween_word": 0.0,
@@ -49,7 +51,9 @@
         "unique_utterance_rate": 0.59,
         "distinct_1": 0.1295,
         "distinct_2": 0.2471,
-        "immediate_repeat_rate": 0.0
+        "immediate_repeat_rate": 0.0,
+        "top_first_word": "THE",
+        "top_first_word_rate": 0.99
       },
       "most_common": [
         {
@@ -77,52 +81,52 @@
         {
           "seed": 1000,
           "text": "THE BAKER IS SINGING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1001,
           "text": "THE DOG",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1002,
           "text": "THE WINDOW",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1003,
           "text": "THE BIRD ATE THE KITCHEN",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1004,
           "text": "THE DAY IS READING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1005,
           "text": "THE FLOWER IS SLEEPING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1006,
           "text": "THE DOG IS LONG",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1007,
           "text": "THE LIBRARY IS SLEEPING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1008,
           "text": "THE RAIN IS READING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1009,
           "text": "THE KITCHEN",
-          "ended": true
+          "stopped_before_limit": true
         }
       ]
     },
@@ -137,7 +141,7 @@
       "metrics": {
         "n": 100,
         "empty_rate": 0.0,
-        "ended_rate": 1.0,
+        "stopped_before_limit_rate": 1.0,
         "mean_words": 3.13,
         "halloween_word_rate": 0.1502,
         "utterances_with_halloween_word": 0.42,
@@ -147,7 +151,9 @@
         "unique_utterance_rate": 0.2,
         "distinct_1": 0.0383,
         "distinct_2": 0.0704,
-        "immediate_repeat_rate": 0.0
+        "immediate_repeat_rate": 0.0,
+        "top_first_word": "THE",
+        "top_first_word_rate": 1.0
       },
       "most_common": [
         {
@@ -175,52 +181,52 @@
         {
           "seed": 1000,
           "text": "THE GHOST",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1001,
           "text": "THE FROG IS THERE",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1002,
           "text": "THE GHOST",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1003,
           "text": "THE FROG IS HERE",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1004,
           "text": "THE MACHINE",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1005,
           "text": "THE MACHINE",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1006,
           "text": "THE FROG",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1007,
           "text": "THE MACHINE",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1008,
           "text": "THE MACHINE",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1009,
           "text": "THE GHOST",
-          "ended": true
+          "stopped_before_limit": true
         }
       ]
     },
@@ -237,7 +243,7 @@
       "metrics": {
         "n": 100,
         "empty_rate": 0.0,
-        "ended_rate": 0.99,
+        "stopped_before_limit_rate": 0.99,
         "mean_words": 4.17,
         "halloween_word_rate": 0.1847,
         "utterances_with_halloween_word": 0.64,
@@ -247,7 +253,9 @@
         "unique_utterance_rate": 0.81,
         "distinct_1": 0.1823,
         "distinct_2": 0.3312,
-        "immediate_repeat_rate": 0.0
+        "immediate_repeat_rate": 0.0,
+        "top_first_word": "THE",
+        "top_first_word_rate": 0.49
       },
       "most_common": [
         {
@@ -275,52 +283,52 @@
         {
           "seed": 1000,
           "text": "COLD WIND AT MIDNIGHT",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1001,
           "text": "COLD WIND AT MIDNIGHT",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1002,
           "text": "A SPIDER IN THE WINDOW",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1003,
           "text": "I AM HUNGRY",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1004,
           "text": "THE NIGHT IS QUIET",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1005,
           "text": "I WANT A WITCH ON A GHOST IN THE WIRES",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1006,
           "text": "THE MACHINE",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1007,
           "text": "SOMETHING IS HUNGRY",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1008,
           "text": "A FROG",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1009,
           "text": "THE WITCH IS AWAKE",
-          "ended": true
+          "stopped_before_limit": true
         }
       ]
     },
@@ -337,7 +345,7 @@
       "metrics": {
         "n": 100,
         "empty_rate": 0.0,
-        "ended_rate": 0.99,
+        "stopped_before_limit_rate": 0.99,
         "mean_words": 3.68,
         "halloween_word_rate": 0.1549,
         "utterances_with_halloween_word": 0.51,
@@ -347,7 +355,9 @@
         "unique_utterance_rate": 0.57,
         "distinct_1": 0.1277,
         "distinct_2": 0.2351,
-        "immediate_repeat_rate": 0.0
+        "immediate_repeat_rate": 0.0,
+        "top_first_word": "THE",
+        "top_first_word_rate": 0.99
       },
       "most_common": [
         {
@@ -375,52 +385,52 @@
         {
           "seed": 1000,
           "text": "THE DARK",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1001,
           "text": "THE FROG IS FLICKERING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1002,
           "text": "THE GHOST",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1003,
           "text": "THE GHOST IS LAUGHING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1004,
           "text": "THE NIGHT IS HUNGRY",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1005,
           "text": "THE OWL SAYS WHO",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1006,
           "text": "THE GHOST",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1007,
           "text": "THE ZOMBIE IS FLICKERING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1008,
           "text": "THE FOG IS HUNGRY",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1009,
           "text": "THE MACHINE",
-          "ended": true
+          "stopped_before_limit": true
         }
       ]
     },
@@ -437,7 +447,7 @@
       "metrics": {
         "n": 100,
         "empty_rate": 0.0,
-        "ended_rate": 1.0,
+        "stopped_before_limit_rate": 1.0,
         "mean_words": 2.99,
         "halloween_word_rate": 0.194,
         "utterances_with_halloween_word": 0.54,
@@ -447,7 +457,9 @@
         "unique_utterance_rate": 0.38,
         "distinct_1": 0.1104,
         "distinct_2": 0.2312,
-        "immediate_repeat_rate": 0.0
+        "immediate_repeat_rate": 0.0,
+        "top_first_word": "THE",
+        "top_first_word_rate": 0.99
       },
       "most_common": [
         {
@@ -475,52 +487,52 @@
         {
           "seed": 1000,
           "text": "THE GHOST",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1001,
           "text": "THE FROG IS ROLLING IN THE MACHINE",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1002,
           "text": "THE GHOST",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1003,
           "text": "THE GHOST IS IN THE FROG",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1004,
           "text": "THE SPIDER IS SLEEPING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1005,
           "text": "THE MUMMY IS FLICKERING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1006,
           "text": "THE FROG",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1007,
           "text": "THE MACHINE",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1008,
           "text": "THE OWL SAYS WHO IS THERE",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1009,
           "text": "THE GHOST",
-          "ended": true
+          "stopped_before_limit": true
         }
       ]
     },
@@ -537,7 +549,7 @@
       "metrics": {
         "n": 100,
         "empty_rate": 0.0,
-        "ended_rate": 1.0,
+        "stopped_before_limit_rate": 1.0,
         "mean_words": 3.27,
         "halloween_word_rate": 0.0,
         "utterances_with_halloween_word": 0.0,
@@ -547,7 +559,9 @@
         "unique_utterance_rate": 0.53,
         "distinct_1": 0.107,
         "distinct_2": 0.3084,
-        "immediate_repeat_rate": 0.0969
+        "immediate_repeat_rate": 0.0969,
+        "top_first_word": "THE",
+        "top_first_word_rate": 0.89
       },
       "most_common": [
         {
@@ -575,52 +589,52 @@
         {
           "seed": 1000,
           "text": "THE INOOKE ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1001,
           "text": "THE IS IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1002,
           "text": "THE ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1003,
           "text": "THE ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1004,
           "text": "THE IN THE IN IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1005,
           "text": "THE ID ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1006,
           "text": "THE ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1007,
           "text": "THE INGAD",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1008,
           "text": "THE S IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1009,
           "text": "THE S IN ING",
-          "ended": true
+          "stopped_before_limit": true
         }
       ]
     },
@@ -635,7 +649,7 @@
       "metrics": {
         "n": 100,
         "empty_rate": 0.0,
-        "ended_rate": 0.84,
+        "stopped_before_limit_rate": 0.84,
         "mean_words": 8.65,
         "halloween_word_rate": 0.0,
         "utterances_with_halloween_word": 0.0,
@@ -645,7 +659,9 @@
         "unique_utterance_rate": 0.83,
         "distinct_1": 0.0266,
         "distinct_2": 0.102,
-        "immediate_repeat_rate": 0.285
+        "immediate_repeat_rate": 0.285,
+        "top_first_word": "THE",
+        "top_first_word_rate": 0.95
       },
       "most_common": [
         {
@@ -673,52 +689,52 @@
         {
           "seed": 1000,
           "text": "THE IND IN IN INDY ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1001,
           "text": "THE IS IN IN IN THE INGHE IN THE IN INGHE INGHE IN IS IS IN ",
-          "ended": false
+          "stopped_before_limit": false
         },
         {
           "seed": 1002,
           "text": "THE IN IN IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1003,
           "text": "THE IN IN INGHE IN IN IN THE IN IN IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1004,
           "text": "THE INGHE INGHE IN IN IN THE ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1005,
           "text": "THE IS IN INGHE IN IN IS INGHE THE IN INDOOOS ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1006,
           "text": "THE IN IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1007,
           "text": "THE IN THE IS INGHE IS IN IN THE IN INGHE IN THE IN IN IN TH",
-          "ended": false
+          "stopped_before_limit": false
         },
         {
           "seed": 1008,
           "text": "THE THE IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1009,
           "text": "THE THE IN IN IN IN IS ING",
-          "ended": true
+          "stopped_before_limit": true
         }
       ]
     },
@@ -735,7 +751,7 @@
       "metrics": {
         "n": 100,
         "empty_rate": 0.0,
-        "ended_rate": 0.84,
+        "stopped_before_limit_rate": 0.84,
         "mean_words": 5.98,
         "halloween_word_rate": 0.0017,
         "utterances_with_halloween_word": 0.01,
@@ -745,7 +761,9 @@
         "unique_utterance_rate": 0.99,
         "distinct_1": 0.4548,
         "distinct_2": 0.8474,
-        "immediate_repeat_rate": 0.0522
+        "immediate_repeat_rate": 0.0522,
+        "top_first_word": "THE",
+        "top_first_word_rate": 0.4
       },
       "most_common": [
         {
@@ -773,52 +791,52 @@
         {
           "seed": 1000,
           "text": "HE INGLOA THE THING I IDE D",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1001,
           "text": "HE S L THE AUNIGIC",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1002,
           "text": "CHE THE THE THE IND",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1003,
           "text": "ATHE ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1004,
           "text": "IR AKE S WE CE THE IDNIN YOBATHE DALE THE ININ LLLLING ISLLD",
-          "ended": false
+          "stopped_before_limit": false
         },
         {
           "seed": 1005,
           "text": "ADOVEBOMAMIDR THE IN INTHE SPKI W",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1006,
           "text": "THE IN THE I INCORIN",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1007,
           "text": "N",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1008,
           "text": "C",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1009,
           "text": "THE BIST IN THE ANG",
-          "ended": true
+          "stopped_before_limit": true
         }
       ]
     },
@@ -835,7 +853,7 @@
       "metrics": {
         "n": 100,
         "empty_rate": 0.0,
-        "ended_rate": 0.74,
+        "stopped_before_limit_rate": 0.74,
         "mean_words": 9.42,
         "halloween_word_rate": 0.0,
         "utterances_with_halloween_word": 0.0,
@@ -845,7 +863,9 @@
         "unique_utterance_rate": 0.92,
         "distinct_1": 0.0987,
         "distinct_2": 0.2684,
-        "immediate_repeat_rate": 0.2518
+        "immediate_repeat_rate": 0.2518,
+        "top_first_word": "THE",
+        "top_first_word_rate": 0.87
       },
       "most_common": [
         {
@@ -873,52 +893,52 @@
         {
           "seed": 1000,
           "text": "THE INOS IN IN IS IN THE ISE IN IN THE IN IN THE IN GHE ING ",
-          "ended": false
+          "stopped_before_limit": false
         },
         {
           "seed": 1001,
           "text": "THE IS IN IN ING ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1002,
           "text": "THE IN IN IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1003,
           "text": "THE IN IN INDE IN IN IN IS IS IN INGHE IS THE IN IN IN IS IN",
-          "ended": false
+          "stopped_before_limit": false
         },
         {
           "seed": 1004,
           "text": "THE INGHE INGHE IN IN IN WIS INDYS ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1005,
           "text": "THE ITHE INGHE IN IN INDN INGHE IN IN THE IN IN THE IN IN TH",
-          "ended": false
+          "stopped_before_limit": false
         },
         {
           "seed": 1006,
           "text": "THE IN IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1007,
           "text": "IN THE FON IS INE IS THE IN IS IN IN IS IN INDARE IN IN INDY",
-          "ended": false
+          "stopped_before_limit": false
         },
         {
           "seed": 1008,
           "text": "THE THE THE IN IN IN IS IN THE THE ININ IN IN IN INIS IN IN ",
-          "ended": false
+          "stopped_before_limit": false
         },
         {
           "seed": 1009,
           "text": "THE THE IN ING",
-          "ended": true
+          "stopped_before_limit": true
         }
       ]
     },
@@ -935,7 +955,7 @@
       "metrics": {
         "n": 100,
         "empty_rate": 0.0,
-        "ended_rate": 0.79,
+        "stopped_before_limit_rate": 0.79,
         "mean_words": 8.89,
         "halloween_word_rate": 0.0,
         "utterances_with_halloween_word": 0.0,
@@ -945,7 +965,9 @@
         "unique_utterance_rate": 0.91,
         "distinct_1": 0.099,
         "distinct_2": 0.2649,
-        "immediate_repeat_rate": 0.2928
+        "immediate_repeat_rate": 0.2928,
+        "top_first_word": "THE",
+        "top_first_word_rate": 0.88
       },
       "most_common": [
         {
@@ -973,52 +995,52 @@
         {
           "seed": 1000,
           "text": "THE INOS IN IN IS IN THE ISTHE IN IN IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1001,
           "text": "THE IS ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1002,
           "text": "THE IN IN IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1003,
           "text": "THE IN IN INDE IN IN IN IS IS IN INGHE IN IN IN IN IN INOTHE",
-          "ended": false
+          "stopped_before_limit": false
         },
         {
           "seed": 1004,
           "text": "THE INGHE INGHE IN IN IN ATHE IN THE ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1005,
           "text": "THE IGHE INGHE IN IN INDN INGHE IN IN INCOS ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1006,
           "text": "THE IN IN INDY",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1007,
           "text": "THE IN AROOG IN THE INE IN INOS ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1008,
           "text": "THE THE IN ING",
-          "ended": true
+          "stopped_before_limit": true
         },
         {
           "seed": 1009,
           "text": "THE THE IN ING",
-          "ended": true
+          "stopped_before_limit": true
         }
       ]
     }

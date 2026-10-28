@@ -103,7 +103,7 @@ def haunt(frog, info, *, count: int = 8, interval: float = 2.5, seed=None,
             if log_path:
                 append_log(log_path, [utt], {"session_seed": base, "epochs": info.epochs})
             text = utt.text if utt.text.strip() else "(silence)"
-            mark = "" if utt.ended else " …"
+            mark = "" if utt.stopped_before_limit else " …"
             prefix = "🐸 " if halloween else "> "
             typewrite(f"{style.frog}{prefix}{text}{mark}{style.reset}"
                       f"{style.dim}   [seed {utt.seed}]{style.reset}", stream, typing_delay)

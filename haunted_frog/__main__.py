@@ -89,6 +89,8 @@ def main(argv=None) -> int:
             if a.log:
                 append_log(a.log, utts, {"epochs": info.epochs})
         elif a.cmd == "evaluate":
+            if not a.out.endswith(".json"):
+                raise ValueError(f"--out must end in .json (the .md report is written next to it): {a.out}")
             result = evaluator.run_experiment(seeds=range(a.first_seed, a.first_seed + a.seeds))
             json_path, md_path = evaluator.write(result, a.out)
             print(evaluator.to_markdown(result).split("\n**")[0])

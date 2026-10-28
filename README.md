@@ -111,10 +111,10 @@ What worked:
 
 What failed or surprised us:
 
-- **It over-uses "THE".** Almost every word-level line starts with `THE`, and the Halloween-word rate (15-19%) stays *below* the corpus's own 22.6%.
+- **It over-uses "THE".** `THE` starts 38% of the corpus lines, but 99% of the word-level outputs at 5 and 20 epochs (49% at 1 epoch). The Halloween-word rate (15-19%) stays *below* the corpus's own 22.6%.
 - **More training made it less varied.** With more epochs, unique outputs fell from 81% to 38%, and the frog fell back on a few attractors such as `THE GHOST` and `THE MACHINE`. `scripts/diagnose.py` shows why: the probability that a line starts with `THE` rises from 0.435 (1 epoch) to 0.998 (20 epochs).
 - **CSE-Frog's default `top_k_edges=3` is too narrow for this corpus.** Unique outputs were only 20%, and nearly every line started with `THE GHOST`, `THE MACHINE` or `THE FROG`. We raised it to 16 after looking at seeds 0-39 and then scored on seeds 1000+.
-- **The character-level frog almost never produces a Halloween word.** At 5 and 20 epochs (200 outputs) it produced none. At 1 epoch it produced exactly one, in 1 output out of 100. It keeps circling an `IN IN ING` loop (`THE INGHE INGHE IN IN IN THE ING`), with occasional fragments like `AUNIGIC`. Our hypothesis is that about two symbols of context is not enough to hold a word together. We did not test this directly (e.g. by varying context length).
+- **The character-level frog almost never produces a Halloween word.** At 5 and 20 epochs (200 outputs) it produced none. At 1 epoch it produced exactly one, in 1 output out of 100. It keeps circling an `IN IN ING` loop (`THE INGHE INGHE IN IN IN WIS INDYS ING`, 5 epochs), with occasional fragments like `AUNIGIC` (1 epoch). Our hypothesis is that about two symbols of context is not enough to hold a word together. We did not test this directly (e.g. by varying context length).
 - "Novel" only means "not an exact corpus line". It does not mean grammatical: `THE FROG IS ROLLING IN THE LIGHT IS BUBBLING`.
 
 ## How it works

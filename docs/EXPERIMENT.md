@@ -61,22 +61,23 @@ All metrics are computed on whitespace-split words of the output text, so word- 
 | Unique | distinct outputs / non-empty outputs |
 | Distinct-2 | distinct word bigrams / all word bigrams |
 | Repeats | share of adjacent word pairs that are the same word (`IN IN`) |
-| Ended | share of outputs that stopped by choosing `<END>` rather than hitting max length |
+| Top 1st word / Its share | most common first word of the non-empty outputs, and the share of outputs that start with it |
+| Stopped < max | share of outputs that stopped before max length. In cse-frog 0.2.0, `Frog.generate` stops early only when it samples `<END>` (a test forces this with a scripted distribution). |
 
 ## Results (seeds 1000-1099, 100 per condition)
 
-| Condition | Halloween words | Real words | Novel lines | Unique | Distinct-2 | Repeats | Ended | Mean words |
-|---|---|---|---|---|---|---|---|---|
-| control-word | 0.0 | 1.0 | 0.95 | 0.59 | 0.2471 | 0.0 | 0.99 | 3.63 |
-| halloween-word-e5-k3 (cse default) | 0.1502 | 1.0 | 0.8 | 0.2 | 0.0704 | 0.0 | 1.0 | 3.13 |
-| halloween-word-e1 | 0.1847 | 1.0 | 0.83 | 0.81 | 0.3312 | 0.0 | 0.99 | 4.17 |
-| halloween-word-e5 | 0.1549 | 1.0 | 0.91 | 0.57 | 0.2351 | 0.0 | 0.99 | 3.68 |
-| halloween-word-e20 | 0.194 | 1.0 | 0.94 | 0.38 | 0.2312 | 0.0 | 1.0 | 2.99 |
-| control-char | 0.0 | 0.5872 | 1.0 | 0.53 | 0.3084 | 0.0969 | 1.0 | 3.27 |
-| halloween-char-e5-k3 (cse default) | 0.0 | 0.778 | 1.0 | 0.83 | 0.102 | 0.285 | 0.84 | 8.65 |
-| halloween-char-e1 | 0.0017 | 0.3645 | 1.0 | 0.99 | 0.8474 | 0.0522 | 0.84 | 5.98 |
-| halloween-char-e5 | 0.0 | 0.7293 | 1.0 | 0.92 | 0.2684 | 0.2518 | 0.74 | 9.42 |
-| halloween-char-e20 | 0.0 | 0.7154 | 1.0 | 0.91 | 0.2649 | 0.2928 | 0.79 | 8.89 |
+| Condition | Halloween words | Real words | Novel lines | Unique | Distinct-2 | Repeats | Top 1st word | Its share | Stopped < max | Mean words |
+|---|---|---|---|---|---|---|---|---|---|---|
+| control-word | 0.0 | 1.0 | 0.95 | 0.59 | 0.2471 | 0.0 | THE | 0.99 | 0.99 | 3.63 |
+| halloween-word-e5-k3 (cse default) | 0.1502 | 1.0 | 0.8 | 0.2 | 0.0704 | 0.0 | THE | 1.0 | 1.0 | 3.13 |
+| halloween-word-e1 | 0.1847 | 1.0 | 0.83 | 0.81 | 0.3312 | 0.0 | THE | 0.49 | 0.99 | 4.17 |
+| halloween-word-e5 | 0.1549 | 1.0 | 0.91 | 0.57 | 0.2351 | 0.0 | THE | 0.99 | 0.99 | 3.68 |
+| halloween-word-e20 | 0.194 | 1.0 | 0.94 | 0.38 | 0.2312 | 0.0 | THE | 0.99 | 1.0 | 2.99 |
+| control-char | 0.0 | 0.5872 | 1.0 | 0.53 | 0.3084 | 0.0969 | THE | 0.89 | 1.0 | 3.27 |
+| halloween-char-e5-k3 (cse default) | 0.0 | 0.778 | 1.0 | 0.83 | 0.102 | 0.285 | THE | 0.95 | 0.84 | 8.65 |
+| halloween-char-e1 | 0.0017 | 0.3645 | 1.0 | 0.99 | 0.8474 | 0.0522 | THE | 0.4 | 0.84 | 5.98 |
+| halloween-char-e5 | 0.0 | 0.7293 | 1.0 | 0.92 | 0.2684 | 0.2518 | THE | 0.87 | 0.74 | 9.42 |
+| halloween-char-e20 | 0.0 | 0.7154 | 1.0 | 0.91 | 0.2649 | 0.2928 | THE | 0.88 | 0.79 | 8.89 |
 
 - Halloween-word rate of the training corpus itself: **0.2255**.
 - Untrained `Frog()`: 100% empty output. The prompt `GHOST` is rejected as an unknown symbol.
@@ -104,7 +105,7 @@ Every other condition's first ten are in `results/example_results.json` (`sample
 
 1. **Training is what makes it speak at all, and the corpus decides what it says.** Untrained: silence. Control corpus: 0% Halloween words. Halloween corpus: 15-19%.
 2. **It recombines rather than recites.** With k=16, 83-94% of Halloween word-level outputs are not exact corpus lines (k=3: 80%, control: 95%). The frog swaps the subject and predicate across lines that share `THE ... IS ...` (`THE ZOMBIE IS FLICKERING`, `THE GHOST IS IN THE FROG`). Some recombinations are not grammatical.
-3. **It amplifies the most common word.** `THE` is the corpus's most frequent word (41 of 235 words) and starts 23 of 60 lines (38%), yet it starts almost every word-level output. The Halloween-word rate stays *below* the corpus's own 22.6%, because function words (THE, IS) are over-produced.
+3. **It amplifies the most common word.** `THE` is the corpus's most frequent word (41 of 235 words) and starts 23 of 60 lines (38%), yet it starts 99% of word-level outputs at 5 and 20 epochs (and 100% with k=3). At 1 epoch the share is 49%, which matches the diagnostic below (P(THE first) = 0.435). The Halloween-word rate stays *below* the corpus's own 22.6%, because function words (THE, IS) are over-produced.
 4. **More epochs mean less variety.** Unique outputs fall from 0.81 (e1) to 0.57 (e5) to 0.38 (e20), and the outputs get shorter (4.17 to 2.99 words). The strongest paths get stronger and the frog falls into a few attractors (`THE GHOST`, `THE MACHINE`).
 5. **The candidate cutoff matters a lot.** At the CSE-Frog default `top_k_edges=3`, only 20% of outputs are unique, against 57% for k=16 at the same 5 epochs. This is one setting on one corpus, so it is not a general claim about CSE-Frog.
 6. **The character-level frog cannot hold a word together.** It produced no Halloween word at 5 or 20 epochs. At 1 epoch it produced one (1 of 598 words, in 1 of 100 outputs). It falls into an `IN IN ING` loop: `THE`, `IS` and `IN` are among the most frequent character runs in the corpus, and many lines end in `-ING`. Our **hypothesis** is that about two characters of context is not enough to escape them. This was not isolated experimentally: we did not vary the context length. More training raises the "real word" share (0.36 to 0.73), and the samples suggest this comes mostly from repeating `THE`/`IN`/`IS`.
